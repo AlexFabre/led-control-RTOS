@@ -22,6 +22,8 @@
 #include "main.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "button.h"
+#include "gpio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -125,6 +127,11 @@ void EXTI4_15_IRQHandler(void)
     /* USER CODE END EXTI4_15_IRQn 0 */
     HAL_GPIO_EXTI_IRQHandler(BTN_Pin);
     /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+    if (is_BTN_pressed() == true) {
+        button_pressed_IRQ();
+    } else {
+        button_released_IRQ();
+    }
 
     /* USER CODE END EXTI4_15_IRQn 1 */
 }

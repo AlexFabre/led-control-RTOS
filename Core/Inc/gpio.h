@@ -46,6 +46,11 @@ extern "C" {
  * 0: LED is OFF */
 #define is_LED_ON() ((bool)HAL_GPIO_ReadPin(LED_GPIO_Port, LED_Pin))
 
+/* Read Blue button state
+ * 1: button is pressed
+ * 0: button is released */
+#define is_BTN_pressed() ((bool)HAL_GPIO_ReadPin(BTN_GPIO_Port, BTN_Pin) == GPIO_PIN_RESET)
+
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);

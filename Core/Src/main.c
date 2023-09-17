@@ -25,6 +25,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "button.h"
 
 /* USER CODE END Includes */
 
@@ -94,6 +95,8 @@ int main(void)
     /* USER CODE BEGIN 2 */
 
     infoPrintln("Device started !");
+
+    reset_button_variables();
 
     /* USER CODE END 2 */
 
