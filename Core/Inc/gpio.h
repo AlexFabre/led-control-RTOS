@@ -29,10 +29,22 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include <stdbool.h>
 
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
+
+/* Toggle Green LED */
+#define toggle_LED() (HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin))
+
+/* Set LED on (1) or off (0) */
+#define set_LED(state) HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, (state == true) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+
+/* Read Green LED state
+ * 1: LED is ON
+ * 0: LED is OFF */
+#define is_LED_ON() ((bool)HAL_GPIO_ReadPin(LED_GPIO_Port, LED_Pin))
 
 /* USER CODE END Private defines */
 
