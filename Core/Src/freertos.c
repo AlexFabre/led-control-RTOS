@@ -168,6 +168,8 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
+  (void) argument;
+  
   /* Infinite loop */
   for(;;)
   {
@@ -178,6 +180,18 @@ void StartDefaultTask(void *argument)
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
+
+void led_task(void *argument)
+{
+	(void) argument;
+
+}
+
+void uart_task(void *argument)
+{
+	(void) argument;
+
+}
 
 /* USER CODE END Application */
 
