@@ -1,25 +1,25 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file    stm32f0xx_it.c
-  * @brief   Interrupt Service Routines.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2023 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    stm32f0xx_it.c
+ * @brief   Interrupt Service Routines.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2023 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
 #include "stm32f0xx_it.h"
+#include "main.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -55,9 +55,9 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern RTC_HandleTypeDef hrtc;
+extern RTC_HandleTypeDef  hrtc;
 extern UART_HandleTypeDef huart2;
-extern TIM_HandleTypeDef htim17;
+extern TIM_HandleTypeDef  htim17;
 
 /* USER CODE BEGIN EV */
 
@@ -67,33 +67,31 @@ extern TIM_HandleTypeDef htim17;
 /*           Cortex-M0 Processor Interruption and Exception Handlers          */
 /******************************************************************************/
 /**
-  * @brief This function handles Non maskable interrupt.
-  */
+ * @brief This function handles Non maskable interrupt.
+ */
 void NMI_Handler(void)
 {
-  /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
 
-  /* USER CODE END NonMaskableInt_IRQn 0 */
-  /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
-  while (1)
-  {
-  }
-  /* USER CODE END NonMaskableInt_IRQn 1 */
+    /* USER CODE END NonMaskableInt_IRQn 0 */
+    /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+    while (1) {
+    }
+    /* USER CODE END NonMaskableInt_IRQn 1 */
 }
 
 /**
-  * @brief This function handles Hard fault interrupt.
-  */
+ * @brief This function handles Hard fault interrupt.
+ */
 void HardFault_Handler(void)
 {
-  /* USER CODE BEGIN HardFault_IRQn 0 */
+    /* USER CODE BEGIN HardFault_IRQn 0 */
 
-  /* USER CODE END HardFault_IRQn 0 */
-  while (1)
-  {
-    /* USER CODE BEGIN W1_HardFault_IRQn 0 */
-    /* USER CODE END W1_HardFault_IRQn 0 */
-  }
+    /* USER CODE END HardFault_IRQn 0 */
+    while (1) {
+        /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+        /* USER CODE END W1_HardFault_IRQn 0 */
+    }
 }
 
 /******************************************************************************/
@@ -104,59 +102,59 @@ void HardFault_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles RTC global interrupt through EXTI lines 17, 19 and 20.
-  */
+ * @brief This function handles RTC global interrupt through EXTI lines 17, 19 and 20.
+ */
 void RTC_IRQHandler(void)
 {
-  /* USER CODE BEGIN RTC_IRQn 0 */
+    /* USER CODE BEGIN RTC_IRQn 0 */
 
-  /* USER CODE END RTC_IRQn 0 */
-  HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
-  /* USER CODE BEGIN RTC_IRQn 1 */
+    /* USER CODE END RTC_IRQn 0 */
+    HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
+    /* USER CODE BEGIN RTC_IRQn 1 */
 
-  /* USER CODE END RTC_IRQn 1 */
+    /* USER CODE END RTC_IRQn 1 */
 }
 
 /**
-  * @brief This function handles EXTI line 4 to 15 interrupts.
-  */
+ * @brief This function handles EXTI line 4 to 15 interrupts.
+ */
 void EXTI4_15_IRQHandler(void)
 {
-  /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+    /* USER CODE BEGIN EXTI4_15_IRQn 0 */
 
-  /* USER CODE END EXTI4_15_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(BTN_Pin);
-  /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+    /* USER CODE END EXTI4_15_IRQn 0 */
+    HAL_GPIO_EXTI_IRQHandler(BTN_Pin);
+    /* USER CODE BEGIN EXTI4_15_IRQn 1 */
 
-  /* USER CODE END EXTI4_15_IRQn 1 */
+    /* USER CODE END EXTI4_15_IRQn 1 */
 }
 
 /**
-  * @brief This function handles TIM17 global interrupt.
-  */
+ * @brief This function handles TIM17 global interrupt.
+ */
 void TIM17_IRQHandler(void)
 {
-  /* USER CODE BEGIN TIM17_IRQn 0 */
+    /* USER CODE BEGIN TIM17_IRQn 0 */
 
-  /* USER CODE END TIM17_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim17);
-  /* USER CODE BEGIN TIM17_IRQn 1 */
+    /* USER CODE END TIM17_IRQn 0 */
+    HAL_TIM_IRQHandler(&htim17);
+    /* USER CODE BEGIN TIM17_IRQn 1 */
 
-  /* USER CODE END TIM17_IRQn 1 */
+    /* USER CODE END TIM17_IRQn 1 */
 }
 
 /**
-  * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
-  */
+ * @brief This function handles USART2 global interrupt / USART2 wake-up interrupt through EXTI line 26.
+ */
 void USART2_IRQHandler(void)
 {
-  /* USER CODE BEGIN USART2_IRQn 0 */
+    /* USER CODE BEGIN USART2_IRQn 0 */
 
-  /* USER CODE END USART2_IRQn 0 */
-  HAL_UART_IRQHandler(&huart2);
-  /* USER CODE BEGIN USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 0 */
+    HAL_UART_IRQHandler(&huart2);
+    /* USER CODE BEGIN USART2_IRQn 1 */
 
-  /* USER CODE END USART2_IRQn 1 */
+    /* USER CODE END USART2_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
