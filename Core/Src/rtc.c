@@ -58,6 +58,9 @@ void MX_RTC_Init(void)
     }
     /* USER CODE BEGIN RTC_Init 2 */
 
+    /* Cube MX automatically starts RTC Timer after init... */
+    stop_RTC_periodic_wkup();
+
     /* USER CODE END RTC_Init 2 */
 }
 

@@ -36,6 +36,12 @@ extern RTC_HandleTypeDef hrtc;
 
 /* USER CODE BEGIN Private defines */
 
+/* Set next device wakeup */
+#define start_RTC_periodic_wkup(seconds) (HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, seconds, RTC_WAKEUPCLOCK_CK_SPRE_16BITS))
+
+/* Stop device periodic wakeup */
+#define stop_RTC_periodic_wkup() (HAL_RTCEx_DeactivateWakeUpTimer(&hrtc))
+
 /* USER CODE END Private defines */
 
 void MX_RTC_Init(void);
