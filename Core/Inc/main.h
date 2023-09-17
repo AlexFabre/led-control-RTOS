@@ -32,6 +32,31 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+/*****************************************************************************/
+/* Those pragma enable below listed warning for all files that include main.h
+ * This way we make sure the SOUPs are not concerned by the severity of those flags */
+
+/* Warnings to enable */
+#pragma GCC diagnostic warning "-Wextra"
+#pragma GCC diagnostic warning "-Wmissing-include-dirs"
+#pragma GCC diagnostic warning "-Wswitch-default"
+#pragma GCC diagnostic warning "-Wswitch-enum"
+#pragma GCC diagnostic warning "-Wconversion"
+#pragma GCC diagnostic warning "-Wsign-conversion"
+#pragma GCC diagnostic warning "-Wwrite-strings"
+#pragma GCC diagnostic warning "-Wduplicated-cond"
+#pragma GCC diagnostic warning "-Wduplicated-branches"
+#pragma GCC diagnostic warning "-Wlogical-op"
+#pragma GCC diagnostic warning "-Wnull-dereference"
+#pragma GCC diagnostic warning "-Wjump-misses-init"
+#pragma GCC diagnostic warning "-Wshadow"
+#pragma GCC diagnostic warning "-Wformat=2"
+#pragma GCC diagnostic warning "-Wfloat-equal"
+
+/* Warnings to ignore */
+// #pragma GCC diagnostic ignored "-Wunused-parameter"
+/*****************************************************************************/
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
