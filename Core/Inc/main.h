@@ -57,6 +57,8 @@ extern "C" {
 // #pragma GCC diagnostic ignored "-Wunused-parameter"
 /*****************************************************************************/
 
+#include "log.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

@@ -93,6 +93,8 @@ int main(void)
     MX_USART2_UART_Init();
     /* USER CODE BEGIN 2 */
 
+    infoPrintln("Device started !");
+
     /* USER CODE END 2 */
 
     /* Init scheduler */
