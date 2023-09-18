@@ -25,7 +25,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "button.h"
+#include "gpio.h"
+#include "rtc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -172,6 +174,9 @@ void StartDefaultTask(void *argument)
 
     /* Infinite loop */
     for (;;) {
+        if (get_button_state() == BTN_CLICK) {
+            user_click_event();
+        }
         osDelay(1);
     }
     /* USER CODE END StartDefaultTask */
@@ -180,14 +185,144 @@ void StartDefaultTask(void *argument)
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
+/* Possible states of the device */
+typedef enum {
+    APP_SHUTDOWN,
+    APP_RUNNING,
+    APP_STANDBY
+} app_state_t;
+
+/* Current state of the device */
+static app_state_t _app_state = APP_SHUTDOWN;
+
+/* Process device state change consecutive to button press */
+void user_click_event(void)
+{
+    infoPrintln("User click");
+
+    switch (_app_state) {
+    case APP_SHUTDOWN:
+        _app_state = APP_RUNNING;
+        enter_sequence_running();
+        break;
+    case APP_RUNNING:
+    case APP_STANDBY:
+        _app_state = APP_SHUTDOWN;
+        stop_sequence();
+        break;
+    default:
+        break;
+    }
+}
+
+/* Process device state change consecutive to RTC IRQ */
+void RTC_wakeup_IRQ(void)
+{
+    stop_RTC_periodic_wkup();
+
+    switch (_app_state) {
+    case APP_RUNNING:
+        _app_state = APP_STANDBY;
+        enter_sequence_stanby();
+        break;
+    case APP_STANDBY:
+        _app_state = APP_RUNNING;
+        enter_sequence_running();
+        break;
+    case APP_SHUTDOWN:
+        /* Should never happen */
+        stop_sequence();
+        break;
+    default:
+        break;
+    }
+}
+
+/* The device starts running for 20s */
+void enter_sequence_running(void)
+{
+    /* TODO: Currently the led toggles every 300ms. (300ms ON - 300ms OFF)
+     * We would rather prefer the led to make a short blink every 3s (150ms ON - 2.850s OFF)
+     *
+     * Send on UART2 the message "Enter running !" */
+
+    infoPrintln("Enter running !");
+
+    start_RTC_periodic_wkup(20);
+}
+
+/* The device enters standby for 40s */
+void enter_sequence_stanby(void)
+{
+    /* TODO: Currently the led toggles every 600ms. (600ms ON - 600ms OFF)
+     * We would rather prefer the led to make a short blink every 10s (150ms ON - 9.850s OFF)
+     *
+     * Send on UART2 the message "Enter standby !" */
+
+    infoPrintln("Enter standby !");
+
+    start_RTC_periodic_wkup(40);
+}
+
+/* The device cycle stops */
+void stop_sequence(void)
+{
+    /* TODO: We would like a 4 blink scheme as soon as the cycle stops, to inform the user
+     * that the app effectively stopped running: (150ms ON - 150ms OFF) x4
+     *
+     * Send on UART2 the message "Enter shutdown !" */
+
+    infoPrintln("Enter shutdown !");
+
+    stop_RTC_periodic_wkup();
+}
+
 void led_task(void *argument)
 {
     (void)argument;
+
+    static app_state_t _prev_app_state;
+
+    _prev_app_state = _app_state;
+
+    while (1) {
+
+        if (_prev_app_state == _app_state) {
+            osDelay(10);
+            continue;
+        }
+
+        switch (_app_state) {
+        case APP_RUNNING:
+            set_LED(1);
+            osDelay(300);
+            set_LED(0);
+            osDelay(300);
+            break;
+        case APP_STANDBY:
+            set_LED(1);
+            osDelay(600);
+            set_LED(0);
+            osDelay(600);
+            break;
+        case APP_SHUTDOWN:
+            set_LED(0);
+            break;
+        default:
+            errorPrintln("unknown app state %d", _app_state);
+            break;
+        }
+        osDelay(10);
+    }
 }
 
 void uart_task(void *argument)
 {
     (void)argument;
+
+    while (1) {
+        osDelay(500);
+    }
 }
 
 /* USER CODE END Application */

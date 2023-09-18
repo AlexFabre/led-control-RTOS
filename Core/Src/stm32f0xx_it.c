@@ -113,6 +113,7 @@ void RTC_IRQHandler(void)
     /* USER CODE END RTC_IRQn 0 */
     HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
     /* USER CODE BEGIN RTC_IRQn 1 */
+    RTC_wakeup_IRQ();
 
     /* USER CODE END RTC_IRQn 1 */
 }
