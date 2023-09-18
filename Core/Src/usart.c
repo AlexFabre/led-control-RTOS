@@ -114,4 +114,21 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle)
 
 /* USER CODE BEGIN 1 */
 
+void uart2_print(const char *msg, const size_t len)
+{
+    if (len > UINT16_MAX) {
+        errorPrintln("msg too big to be sent");
+        return;
+    }
+
+    infoPrintln("UART2 Tx started");
+
+    int err = HAL_UART_Transmit(&huart2, (uint8_t *)msg, (uint16_t)len, 10 * len);
+    if (err != HAL_OK) {
+        errorPrintln("HAL Tx error (%d)", err);
+    }
+
+    infoPrintln("UART2 Tx complete");
+}
+
 /* USER CODE END 1 */
