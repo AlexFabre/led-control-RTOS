@@ -10,10 +10,9 @@ The device periodic toggle from ACTIVE state to STANDBY state goes by itself for
 
 To sart or stop the device, the user has to click on the button.
 
-When the user performs a double click the device sends a 4kB frame over UART.
+When the user performs a double click the device sends a 4kB frame over UART at 4800 Bauds. This transmission should not affect the blinking timings nor the button responsiveness.
 
-## Hardware architecture with RTOS
-* One task handles the LED blink timmings
-* RTC handles the application periodic state changes timmings
-* Button is managed with External interrupt 7
-* One task will handle the frame sending and queue
+# Problems
+
+1. When the user performs a double click, the button are not responding during the UART transfer (During the few seconds of the transfer it's impossible to click and toggle the device in ACTIVE/SHUTDOWN). Explain and fix this bug using a dedicated task for the UART messages.
+2. Some blinking timings need to be upgraded in functions `enter_sequence_running()`, `enter_sequence_stanby()`, and `stop_sequence()`. Implement those missing features.
