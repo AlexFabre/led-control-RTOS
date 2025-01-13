@@ -226,13 +226,18 @@ void StartDefaultTask(void *argument)
     /* USER CODE BEGIN StartDefaultTask */
     (void)argument;
 
+    button_event_t btn_state;
+
     /* Infinite loop */
     for (;;) {
-        if (get_button_state() == BTN_CLICK) {
+        /* Read the btn event */
+        btn_state = get_button_state();
+
+        if (btn_state == BTN_CLICK) {
             user_click_event();
         }
 
-        if (get_button_state() == BTN_DOUBLE_CLICK) {
+        if (btn_state == BTN_DOUBLE_CLICK) {
             /* Send the big frame over UART */
             uart2_print(big_msg, sizeof(big_msg));
         }
