@@ -51,7 +51,7 @@ format:
 scan:
 	@$(MAKE) --no-print-directory clean
 	@grep -rl arm-none-eabi-gcc .Debug | xargs sed -i'.original' -e 's/arm-none-eabi-gcc/$$(CC)/g'
-	@scan-build --use-cc=arm-none-eabi-gcc --analyzer-target=armv7m -o Documentation/scan-report/ make debug
+	@scan-build --use-cc=arm-none-eabi-gcc --analyzer-target=armv6m -o Documentation/scan-report/ make debug
 	@git restore Debug/
 	@find . -iname "*.original" -type f -delete
 
