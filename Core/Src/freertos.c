@@ -25,6 +25,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <string.h>
+
 #include "button.h"
 #include "gpio.h"
 #include "rtc.h"
@@ -375,7 +377,36 @@ void uart_task(void *argument)
 {
     (void)argument;
 
+    const char *msg;
+
     while (1) {
+        osMessageQueueGet(uartQueueHandle, &msg, 0, osWaitForever);
+
+        /* We need to retreive the size of the frame...
+         * Beware that strlen usage in embedded systems is strongly discouraged !
+         *
+         * One better possibility would have been to pass either the pointer
+         * to the message and the size of the frame into a single structure.
+         *
+         * ex: struct message_and_size {
+         *     char * msg;
+         *     size_t len;
+         * }
+         *
+         * Then update the type of the queue elements to be that struct.
+         * */
+        size_t len = strlen(msg);
+
+        infoPrintln("UART2 Tx started");
+
+        /* Using blocking transmit is no a problem here. But we could also use a Transmit IT or DMA... */
+        int err = HAL_UART_Transmit(&huart2, (uint8_t *)msg, (uint16_t)len, 10 * len);
+        if (err != HAL_OK) {
+            errorPrintln("HAL Tx error (%d)", err);
+        }
+
+        infoPrintln("UART2 Tx complete");
+
         osDelay(100);
     }
 }

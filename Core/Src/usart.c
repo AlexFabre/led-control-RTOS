@@ -18,9 +18,13 @@
  */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+#include "cmsis_os.h"
+
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+
+extern osMessageQueueId_t uartQueueHandle;
 
 /* USER CODE END 0 */
 
@@ -121,14 +125,8 @@ void uart2_print(const char *msg, const size_t len)
         return;
     }
 
-    infoPrintln("UART2 Tx started");
-
-    int err = HAL_UART_Transmit(&huart2, (uint8_t *)msg, (uint16_t)len, 10 * len);
-    if (err != HAL_OK) {
-        errorPrintln("HAL Tx error (%d)", err);
-    }
-
-    infoPrintln("UART2 Tx complete");
+    /* Putting the pointer to the message into the queue */
+    osMessageQueuePut(uartQueueHandle, &msg, 0, 100);
 }
 
 /* USER CODE END 1 */
