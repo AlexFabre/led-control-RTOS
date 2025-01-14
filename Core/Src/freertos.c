@@ -352,15 +352,15 @@ void led_task(void *argument)
         switch (_app_state) {
         case APP_RUNNING:
             set_LED(1);
-            osDelay(300);
+            osDelay(150);
             set_LED(0);
-            osDelay(300);
+            osDelay(2850);
             break;
         case APP_STANDBY:
             set_LED(1);
-            osDelay(600);
+            osDelay(150);
             set_LED(0);
-            osDelay(600);
+            osDelay(9850);
             break;
         case APP_SHUTDOWN:
             set_LED(0);
