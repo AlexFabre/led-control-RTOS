@@ -346,17 +346,7 @@ void led_task(void *argument)
 {
     (void)argument;
 
-    static app_state_t _prev_app_state;
-
-    _prev_app_state = _app_state;
-
     while (1) {
-
-        if (_prev_app_state == _app_state) {
-            osDelay(10);
-            continue;
-        }
-
         switch (_app_state) {
         case APP_RUNNING:
             set_LED(1);
